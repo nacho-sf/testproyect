@@ -19,6 +19,8 @@
   "homepage": "https://github.com/nacho-sf/testproyect#readme",
   "dependencies": {
     "express": "^4.18.1",
+    "mongo": "^0.1.0",
+    "mongoose": "^6.5.5",
     "nodemon": "^2.0.19",
     "pg": "^8.8.0",
     "pug": "^3.0.2"

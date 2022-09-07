@@ -46,17 +46,7 @@ const getAllEntries = async () => {
     let client,result;
     try{
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(`
-        SELECT
-        e.title,
-        e.content,
-        e.date,
-        e.category,
-        a.name,
-        a.surname,
-        a.image
-    FROM entries AS e
-    INNER JOIN authors AS a ON e.id_author = a.id_author`);
+        const data = await client.query(queries.getAllEntry);
         result = data.rows;
     }catch(err){
         console.log(err);
@@ -82,10 +72,7 @@ const createEntry = async (entry) => {
     let client,result;
     try{
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(`INSERT INTO entries(title,content,id_author,category) 
-                                    VALUES ($1,$2,
-                                    (SELECT id_author FROM authors WHERE email=$3),$4)`
-                                    ,[title,content,email,category]);
+        const data = await client.query(queries.createEntry,[title,content,email,category]);
         result = data.rowCount
     }catch(err){
         console.log(err);
@@ -120,12 +107,7 @@ const updateEntry = async (entry) => {
     let client,result;
     try{
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(`UPDATE entries SET
-            title = $2,
-            content = $3,
-            category = $4    
-        WHERE title = $1;`
-        ,[title,new_title,content,category]);
+        const data = await client.query(queries.updateEntry,[title,new_title,content,category]);
         result = data.rowCount;
     }catch(err){
         console.log(err);
@@ -160,9 +142,7 @@ const deleteEntry = async (entry) => {
     let client,result;
     try{
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(`DELETE FROM entries
-        WHERE entries.title = $1;`
-        ,[title]);
+        const data = await client.query(queries.deleteEntry,[title]);
         result = data.rowCount;
     }catch(err){
         console.log(err);

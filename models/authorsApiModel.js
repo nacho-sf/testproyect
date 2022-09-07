@@ -21,8 +21,7 @@ const getAuthorsByEmail = async (email) => {
     let client,result;
     try{
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(`SELECT * FROM authors
-        WHERE email = $1;`,[email]); // 1 es el primer parametro
+        const data = await client.query(queries.getEmailAuthor,[email]); // 1 es el primer parametro
         result = data.rows;
     }catch(err){
         console.log(err);
@@ -48,7 +47,7 @@ const getAllAuthors = async () => {
     let result;
     let client = await pool.connect(); // Espera a abrir conexion
     try{
-        const data = await client.query(`SELECT * FROM authors`);
+        const data = await client.query(queries.getAllAuthor);
         result = data.rows;
     }catch(err){
         console.log(err);
@@ -74,8 +73,7 @@ const createAuthor = async (author) => {
     let client,result;
     try{
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(`INSERT INTO authors(id_author,name,surname,email,image) VALUES ($1,$2,$3,$4,$5)`
-                                    ,[id_author,name,surname,email,image]);
+        const data = await client.query(queries.createAuthor,[id_author,name,surname,email,image]);
         result = data.rowCount;
     }catch(err){
         console.log(err);

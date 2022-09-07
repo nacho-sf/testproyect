@@ -1,9 +1,13 @@
 //IMPORTACIÓN DE EXPRESS:
 const express = require('express');
 
+//INICIALIZACIÓN DIRECTA DE MONGODB:
+require('./utils/dbMongo');
+
 //IMPORTACIÓN DE RUTAS:
 const entriesApiRouter = require("./routes/entriesApiRoutes");
 const authorsApiRouter = require("./routes/authorsApiRoutes");
+const productsApiRouter = require("./routes/productsApiRoutes");
 
 //IMPORTACIÓN DE MIDDLEWARES:
 const manage404 = require('./middlewares/error404');
@@ -31,6 +35,9 @@ app.use("/api/entries", entriesApiRouter);
 
 //INICIALIZACIÓN DEL ROUTER DE AUTORES:
 app.use("/api/authors", authorsApiRouter);
+
+//INICIALIZACIÓN DEL ROUTER DE PRODUCTOS:
+app.use("/api/products", productsApiRouter);
 
 
 //INICIALIZACIÓN DE MIDDLEWARES:
