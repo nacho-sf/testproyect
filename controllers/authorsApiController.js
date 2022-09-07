@@ -1,5 +1,5 @@
-//IMPORTACIÓN DEL MODELO AUTHOR
-const author = require("../models/author");
+//IMPORTACIÓN DEL MODELO AUTOR
+const authorModel = require("../models/authorsApiModel");
 
 
 
@@ -13,10 +13,10 @@ const getAuthors = async (req, res) => {
     let authors;
     try {
         if (req.query.email) {
-            authors = await entry.getAuthorsByEmail(req.query.email);
+            authors = await authorModel.getAuthorsByEmail(req.query.email);
             res.status(200).json(authors); // [array] con las authors encontradas        }
         }else {
-            authors = await entry.getAllAuthors();
+            authors = await authorModel.getAllAuthors();
             res.status(200).json(authors);
         };
     } catch (error) {
@@ -41,7 +41,7 @@ const createAuthor = async (req,res) => {
     try {
     console.log(req.body);
     const newAuthor = req.body; // {id_author, name, surname, email, image}
-    const response = await newAuthor.createAuthor(newAuthor);
+    const response = await authorModel.createAuthor(newAuthor);
     res.status(201).json({"saved":response});
 
     } catch (error) {
@@ -49,13 +49,14 @@ const createAuthor = async (req,res) => {
         res.status(400).json(error);
     };
 };
+//Para probar, pegar en POSTMAN
 /*
-let newAuthor = {
-    id: 6,
-    name:"Pepe",
-    surname:"Villegas",
-    email:"pepe@mail.com",
-    image:"https://randomuser.me/api/portraits/men/10.jpg"
+{
+    "id_author": 6,
+    "name":"Pepe",
+    "surname":"Villegas",
+    "email":"pepe@mail.com",
+    "image":"https://randomuser.me/api/portraits/men/10.jpg"
 };
 */
 

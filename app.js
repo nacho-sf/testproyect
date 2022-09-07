@@ -26,8 +26,10 @@ app.set('views','./views');
 app.use(express.json());
 
 
-//INICIALIZACIÓN DE LOS ROUTERS:
+//INICIALIZACIÓN DEL ROUTER DE ENTRADAS:
 app.use("/api/entries", entriesApiRouter);
+
+//INICIALIZACIÓN DEL ROUTER DE AUTORES:
 app.use("/api/authors", authorsApiRouter);
 
 

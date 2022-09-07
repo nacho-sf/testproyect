@@ -7,7 +7,7 @@ const entriesApiController = require("../controllers/entriesApiController");
 //DECLARACIÓN DEL ROUTER DE ENTRIES:
 const entriesApiRouter = express.Router();
 
-//RUTAS DE ENTRIES:
+//INICIALIZACIÓN DE RUTAS DE ENTRIES:
 entriesApiRouter.get("/", entriesApiController.getEntries);
 entriesApiRouter.post("/", entriesApiController.createEntry);
 entriesApiRouter.put("/", entriesApiController.updateEntry);

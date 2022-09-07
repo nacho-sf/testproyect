@@ -1,5 +1,5 @@
-//IMPORTACIÓN DEL MODELO ENTRY
-const entry = require("../models/entry");
+//IMPORTACIÓN DEL MODELO ENTRADA
+const entryModel = require("../models/entriesApiModel");
 
 
 
@@ -17,12 +17,12 @@ const getEntries = async (req, res) => {
         if (req.query.email) {
             //Búsqueda por email, invocando el método asíncrono getEntriesByEmail
             //(query. -> Para acceder a los parámetros de URL. ej: query.email)
-            entries = await entry.getEntriesByEmail(req.query.email);
+            entries = await entryModel.getEntriesByEmail(req.query.email);
             //Devuelve [] con las entries encontradas
             res.status(200).json(entries);
         }else {
             //Si no pasas email, invocar método asíncrono getAllEntries
-            entries = await entry.getAllEntries();
+            entries = await entryModel.getAllEntries();
             res.status(200).json(entries);
         };
     } catch (error) {
@@ -43,19 +43,26 @@ const getEntries = async (req, res) => {
 
 //CREAR ENTRADA:
 const createEntry = async (req,res) => {
+    try {
     console.log(req.body);
     //Se guarda en la variable el objeto newEntry leído en el body de Postman
     const newEntry = req.body; // {tilte, content, email, category}
     //Respuesta
-    const response = await entry.createEntry(newEntry);
+    const response = await entryModel.createEntry(newEntry);
     res.status(201).json({"saved":response});
+    
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error);
+    };
 };
 /*
-let newEntry = {
-    title:"Nos gustan las tortillas",
-    content:"En el Marquina las tortillas vuelan",
-    email:"albertu@thebridgeschool.es",
-    category:"gastronomía"
+//Para probar, pegar en POSTMAN
+{
+    "title":"Nos gustan las tortillas",
+    "content":"En el Marquina las tortillas vuelan",
+    "email":"albertu@thebridgeschool.es",
+    "category":"gastronomía"
 };
 */
 
@@ -74,7 +81,7 @@ const updateEntry = async (req, res) => {
     try {
         console.log(req.body);
         const newEntry = req.body; // {tilte,new_title,content,category}
-        const response = await entry.updateEntry(newEntry);
+        const response = await entryModel.updateEntry(newEntry);
         res.status(200).json({"saved":response});
 
     } catch (error) {
@@ -83,6 +90,7 @@ const updateEntry = async (req, res) => {
     };
 };
 /*
+//Para probar, pegar en POSTMAN
 {
     "title":"Título",
     "new_title":"Vacaciones en The Bridge",
@@ -106,7 +114,7 @@ const deleteEntry = async (req, res) => {
     try {
         console.log(req.body);
         const newEntry = req.body; // {tilte}
-        const response = await entry.deleteEntry(newEntry);
+        const response = await entryModel.deleteEntry(newEntry);
         res.status(200).json({'message: Se ha borrado la entry: ':newEntry.title});
 
     } catch (error) {
@@ -114,6 +122,7 @@ const deleteEntry = async (req, res) => {
         res.status(400).json(error);
     };
 };
+//Para probar, pegar en POSTMAN
 /*
 {
     "title":"Título"

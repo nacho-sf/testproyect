@@ -32,6 +32,12 @@ const getAuthorsByEmail = async (email) => {
     };
     return result;
 };
+//Para probar, descomentar solo este
+/*
+getAuthorsByEmail("birja@thebridgeschool.es")
+    .then(data=>console.log(data));
+*/
+
 
 
 
@@ -52,17 +58,23 @@ const getAllAuthors = async () => {
     };
     return result;
 };
+//Para probar, descomentar solo este
+/*
+getAllAuthors()
+.then(data=>console.log(data));
+*/
+
 
 
 
 
 //CREAR AUTOR
-const createAuthor = async (newAuthor) => {
-    const {id_author,name,surname,email,image} = newAuthor;
+const createAuthor = async (author) => {
+    const {id_author,name,surname,email,image} = author;
     let client,result;
     try{
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(`INSERT INTO authors(id_author,name,surname,email,image VALUES ($1,$2,$3,$4,$5)`
+        const data = await client.query(`INSERT INTO authors(id_author,name,surname,email,image) VALUES ($1,$2,$3,$4,$5)`
                                     ,[id_author,name,surname,email,image]);
         result = data.rowCount;
     }catch(err){
@@ -73,20 +85,28 @@ const createAuthor = async (newAuthor) => {
     };
     return result;
 };
-
-
-
-
-//LLAMADA A LOS MODELOS DE AUTORES:
-const authors = {
-    //getAllAuthors,
-    //getAuthorsByEmail,
-    //createAuthor
+//Para probar, descomentar solo este
+/*
+let newAuthor = {
+    id_author: 6,
+    name:"Pepe",
+    surname:"Villegas",
+    email:"pepe@mail.com",
+    image:"https://randomuser.me/api/portraits/men/10.jpg"
 };
+
+createAuthor(newAuthor)
+.then(data=>console.log(data));
+*/
+
+
+
 
 
 
 //EXPORTACIÓN DE LOS MODELOS DE AUTORES:
-module.exports = authors;
-
-
+module.exports = {
+    getAllAuthors,
+    getAuthorsByEmail,
+    createAuthor
+};

@@ -1,4 +1,4 @@
-//IMPORTACIÓN CONEXIÓN POSTGRESQL:
+//IMPORTACIÓN DE CONEXIÓN POSTGRESQL:
 const { Pool } = require('pg');
 
 //DECLARACIÓN DE CREDENCIALES DE POSTGRESQL:
@@ -10,7 +10,7 @@ const pool = new Pool({
   });
 
 
-//IMPORTACIÓN QUERIES:
+//IMPORTACIÓN DE QUERIES:
 const queries = require("../queries/queries");
 
 
@@ -31,6 +31,12 @@ const getEntriesByEmail = async (email) => {
     };
     return result;
 };
+//Para probar, descomentar solo este
+/*
+getEntriesByEmail("birja@thebridgeschool.es")
+    .then(data=>console.log(data));
+*/
+
 
 
 
@@ -60,6 +66,12 @@ const getAllEntries = async () => {
     };
     return result;
 };
+//Para probar, descomentar solo este
+/*
+getAllEntries()
+.then(data=>console.log(data));
+*/
+
 
 
 
@@ -83,6 +95,21 @@ const createEntry = async (entry) => {
     };
     return result;
 };
+//Para probar, descomentar solo este
+/*
+let newEntry = {
+    title:"Título de entrada",
+    content:"Contenido de entrara",
+    email:"prueba1@thebridgeschool.es",
+    category:"Test"
+};
+
+createEntry(newEntry)
+.then(data=>console.log(data));
+*/
+
+
+
 
 
 
@@ -108,6 +135,21 @@ const updateEntry = async (entry) => {
     };
     return result;
 };
+//Para probar, descomentar solo este
+/*
+let newEntry = {
+    title:"Título de entrada",
+    new_title:"Nuevo título de entrada",
+    content:"Nuevo contenido",
+    category:"Nueva categoría"
+};
+
+updateEntry(newEntry)
+.then(data=>console.log(data));
+*/
+
+
+
 
 
 
@@ -130,84 +172,7 @@ const deleteEntry = async (entry) => {
     };
     return result;
 };
-
-
-
-
-//LLAMADA A LOS MODELOS DE ENTRADAS:
-const entries = {
-    getEntriesByEmail,
-    //getAllEntries,
-    //createEntry,
-    //updateEntry,
-    //deleteEntry
-};
-
-
-
-//EXPORTACIÓN DE LOS MODELOS DE ENTRADAS:
-module.exports = entries;
-
-
-
-
-
-
-//////////////////////// PRUEBAS:
-
-
-
-//GET ENTRY BY EMAIL:
-
-getEntriesByEmail("birja@thebridgeschool.es")
-    .then(data=>console.log(data));
-
-
-
-
-//GET ALL ENTRIES
-/*
-getAllEntries()
-.then(data=>console.log(data));
-*/
-
-
-
-
-//CREATE ENTRY
-/*
-let newEntry = {
-    title:"Título de entrada",
-    content:"Contenido de entrara",
-    email:"prueba1@thebridgeschool.es",
-    category:"Test"
-};
-
-createEntry(newEntry)
-.then(data=>console.log(data));
-*/
-
-
-
-
-//UPDATE ENTRY
-/*
-let newEntry = {
-    title:"Título de entrada",
-    new_title:"Nuevo título de entrada",
-    content:"Nuevo contenido",
-    category:"Nueva categoría"
-};
-
-updateEntry(newEntry)
-.then(data=>console.log(data));
-*/
-
-
-
-
-
-//DELETE ENTRY
+//Para probar, descomentar solo este
 /*
 let delEntry = {
     title:"Nuevo título de entrada"
@@ -216,3 +181,17 @@ let delEntry = {
 deleteEntry(delEntry)
 .then(data=>console.log(data));
 */
+
+
+
+
+
+
+//EXPORTACIÓN DE LOS MODELOS DE ENTRADAS:
+module.exports = {
+    getEntriesByEmail,
+    getAllEntries,
+    createEntry,
+    updateEntry,
+    deleteEntry
+};
