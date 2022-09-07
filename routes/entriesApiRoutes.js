@@ -1,20 +1,27 @@
+//IMPORTACIÓN DE EXPRESS:
 const express = require("express");
 
-// Rutas de entries:
+//IMPORTACIÓN DE LOS CONTROLADORES DE ENTRIES:
 const entriesApiController = require("../controllers/entriesApiController");
-const entriesApiRoutes = express.Router();
 
-//entriesApiRoutes.get("/", entriesApiController.getEntries);
-entriesApiRoutes.post("/", entriesApiController.createAuthor);
-entriesApiRoutes.post("/", entriesApiController.createEntry);
-entriesApiRoutes.put("/", entriesApiController.updateEntry);
-entriesApiRoutes.delete("/", entriesApiController.deleteEntry);
-entriesApiRoutes.get("/", entriesApiController.getAuthors);
+//DECLARACIÓN DEL ROUTER DE ENTRIES:
+const entriesApiRouter = express.Router();
+
+//RUTAS DE ENTRIES:
+entriesApiRouter.get("/", entriesApiController.getEntries);
+entriesApiRouter.post("/", entriesApiController.createEntry);
+entriesApiRouter.put("/", entriesApiController.updateEntry);
+entriesApiRouter.delete("/", entriesApiController.deleteEntry);
+
+//EXPORTACIÓN DEL ROUTER DE ENTRIES:
+module.exports = entriesApiRouter;
 
 
-module.exports = entriesApiRoutes;
 
-// Endpoints:
-// GET http://localhost:3000/entries -> ALL
-// GET http://localhost:3000/entries?email=hola@gmail.com -> Por email
-// POST http://localhost:3000/entries
+///////////////ENDPOINTS DE ENTRIES:
+
+//GET http://localhost:3000/api/entries
+//GET http://localhost:3000/api/entries?email=a@gmail.com
+//POST http://localhost:3000/api/entries
+//PUT http://localhost:3000/api/entries
+//DELETE http://localhost:3000/api/entries

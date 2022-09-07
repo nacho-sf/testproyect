@@ -17,6 +17,6 @@ WHERE email=$1;` ,
     deleteEntry:"",
     getEmailAuthor:"" ,
     getAllAuthor:""
-}
+};
 
 module.exports = queries;

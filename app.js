@@ -1,33 +1,41 @@
-// Importación de módulos externos
-const express = require('express')  //Importación de Express
+//IMPORTACIÓN DE EXPRESS:
+const express = require('express');
 
-
-//Importación de rutas
+//IMPORTACIÓN DE RUTAS:
 const entriesApiRouter = require("./routes/entriesApiRoutes");
+const authorsApiRouter = require("./routes/authorsApiRoutes");
 
-// Importación de módulos internos
-const manage404 = require('./middlewares/error404'); //Middleware
-
-const app = express()               //Declaración de Express
-const port = 3000                   //Declaración del puerto
-
-app.set('view engine', 'pug'); // Establece el motor de vistas usado ('pug')
-app.set('views','./views');    // Ruta donde se guardan las vistas
-
-app.use(express.json()); // Para escribir en el body
+//IMPORTACIÓN DE MIDDLEWARES:
+const manage404 = require('./middlewares/error404');
 
 
+//DECLARACIÓN DE EXPRESS:
+const app = express();
+
+//DECLARACIÓN DEL PUERTO:
+const port = 3000;
 
 
-// Inicialización de las rutas (Router) de entries: API
+//SELECCIÓN DEL MOTOR DE RENDERIZADO:
+app.set('view engine', 'pug');
+//RUTA DE UBICACIÓN DE LAS VISTAS:
+app.set('views','./views');
+
+
+//INICIALIZACIÓN DE ESCRITURA EN BODY:
+app.use(express.json());
+
+
+//INICIALIZACIÓN DE LOS ROUTERS:
 app.use("/api/entries", entriesApiRouter);
+app.use("/api/authors", authorsApiRouter);
 
 
-// Middleware de error 404 (Respuesta por defecto para rutas no existentes)
+//INICIALIZACIÓN DE MIDDLEWARES:
 app.use(manage404);
 
 
-//Apertura del puerto
+//INICIALIZACIÓN DEL PUERTO:
 app.listen(port, () => {
-  console.log(`El servidor funciona en el puerto ${port}`)
-})
+  console.log(`El servidor funciona en el puerto ${port}`);
+});

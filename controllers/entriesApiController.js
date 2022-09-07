@@ -1,12 +1,14 @@
-const entry = require("../models/entry")
+//IMPORTACIÓN DEL MODELO ENTRY
+const entry = require("../models/entry");
 
 
 
 
-//-> Para esta función tendremos dos rutas:
 // GET http://localhost:3000/api/entries -> ALL
-// GET http://localhost:3000/entries?email=hola@gmail.com -> Por email
+// GET http://localhost:3000/api/entries?email=a@gmail.com
 
+
+//LEER ENTRADAS (TODAS Y POR EMAIL)
 const getEntries = async (req, res) => {
     //Se declara la variable que tiene que devolver la función
     let entries;
@@ -26,7 +28,7 @@ const getEntries = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(400).json(error)
-    }
+    };
 };
 
 
@@ -34,19 +36,12 @@ const getEntries = async (req, res) => {
 
 
 
-//-> Para esta función tendremos esta ruta:
+
+
 // POST http://localhost:3000/api/entries
 
-/*
-let newEntry = {
-    title:"Nos gustan las tortillas",
-    content:"En el Marquina las tortillas vuelan",
-    email:"albertu@thebridgeschool.es",
-    category:"gastronomía"
-}
-*/
 
-// Crear entry por email:
+//CREAR ENTRADA:
 const createEntry = async (req,res) => {
     console.log(req.body);
     //Se guarda en la variable el objeto newEntry leído en el body de Postman
@@ -55,26 +50,25 @@ const createEntry = async (req,res) => {
     const response = await entry.createEntry(newEntry);
     res.status(201).json({"saved":response});
 };
-
-
-
-
-
-
-
-//updateEntry()
-// PUT http://localhost:3000/api/entries
 /*
-{
-    "title":"Título",
-    "new_title":"Vacaciones en The Bridge",
-    "content":"contendo",
-    "category":"summer"
-}
+let newEntry = {
+    title:"Nos gustan las tortillas",
+    content:"En el Marquina las tortillas vuelan",
+    email:"albertu@thebridgeschool.es",
+    category:"gastronomía"
+};
 */
 
-// Actualizar entry por título:
 
+
+
+
+
+
+// PUT http://localhost:3000/api/entries
+
+
+//ACTUALIZAR ENTRADA POR TÍTULO:
 const updateEntry = async (req, res) => {
     
     try {
@@ -86,22 +80,27 @@ const updateEntry = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(400).json(error);
-    }
+    };
 };
-
-
-
-
-
-
-//deleteEntry()
-// PUT http://localhost:3000/api/entries
 /*
 {
-    "title":"Título"
-}
+    "title":"Título",
+    "new_title":"Vacaciones en The Bridge",
+    "content":"contendo",
+    "category":"summer"
+};
 */
-// Borrar entry por título:
+
+
+
+
+
+
+
+// DELETE http://localhost:3000/api/entries
+
+
+//BORRAR ENTRADA POR TÍTULO:
 const deleteEntry = async (req, res) => {
     
     try {
@@ -113,90 +112,21 @@ const deleteEntry = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(400).json(error);
-    }
+    };
 };
-
-
-
-
-// GET http://localhost:3000/api/authors -> ALL
-
-const getAllAuthors = async (req, res) => {
-    let authors;
-    try {
-        authors = await entry.getAllAuthors();
-        res.status(200).json(authors);
-    } catch (error) {
-        console.log(error);
-        res.status(400).json(error)
-    }
-};
-
-
-
-
-
-
-// GET http://localhost:3000/api/authors -> ALL
-// GET http://localhost:3000/api/authors?email=hola@gmail.com -> Por email
-
-const getAuthors = async (req, res) => {
-    let authors;
-    try {
-        if (req.query.email) {
-            authors = await entry.getAuthorsByEmail(req.query.email);
-            res.status(200).json(authors); // [array] con las authors encontradas        }
-        }else {
-            authors = await entry.getAllAuthors();
-            res.status(200).json(authors);
-        };
-    } catch (error) {
-        console.log(error);
-        res.status(400).json(error)
-    }
-};
-
-
-
-
-
-
-
-//createAuthor()
-// POST http://localhost:3000/api/authors
-
-let newAuthor = {
-    id: 6,
-    name:"Pepe",
-    surname:"Villegas",
-    email:"pepe@mail.com",
-    image:"https://randomuser.me/api/portraits/men/10.jpg"
+/*
+{
+    "title":"Título"
 }
-
-// Crear author:
-const createAuthor = async (req,res) => {
-    try {
-    console.log(req.body);
-    const newAuthor = req.body; // {id_author, name, surname, email, image}
-    const response = await newAuthor.createAuthor(newAuthor);
-    res.status(201).json({"saved":response});
-
-    } catch (error) {
-        console.log(error);
-        res.status(400).json(error);
-    }
-};
+*/
 
 
 
 
-
-
+//EXPORTACIÓN DE CONTROLADORES DE ENTRADAS:
 module.exports = {
     getEntries,
     createEntry,
     updateEntry,
-    deleteEntry,
-    getAuthors,
-    createAuthor
-    }
+    deleteEntry
+    };
